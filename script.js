@@ -1,12 +1,12 @@
-const   NUMBERWORDS = 300;
-const   DISPLAYEDAMMOUNT = 6;
-
-const   startTime = new Date();
+const SECONDS = 60;
+const NUMBERWORDS = 200;
+const DISPLAYEDAMMOUNT = 6;
 const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
 let   keySoundIndex = 0;
 
 let inputedText = "";
+let started = 0;
 
 for (let i = 0; i < 5; i++) {
     keySounds[i] = new Audio(`audio/key${i + 1}.mp3`);
@@ -154,31 +154,63 @@ function handleKeys(e) {
         }
         inputedText = inputedText.substring(0, inputedText.length - 1);
         deleteKeySound.play();
+        animateKeyboard("delete");
     } else if (e.key.length === 1 && regex.test(e.key)) {
+        // initTime();
+        inputedText += e.key;
         if (keySoundIndex > 4) {
             keySoundIndex = 0;
         }
         keySounds[keySoundIndex].play();
         keySoundIndex++;
-        inputedText += e.key;
+        if (e.key !== " ") {
+            animateKeyboard(e.key);
+        } else {
+            animateKeyboard("space");
+        }
     }
 }
 
-function animateKeyboard () {
-    const keys = document.getElementById("keys");
-    const randomKey = Math.floor(Math.random() * 15);
-    keys.children[randomKey].style.fill = "white";
+function animateKeyboard (key) {
+    const pressedKey = document.getElementById(`${key}Key`);
+    const keyDetail = document.getElementById(`${key}Detail`);
+
+    if (key == "delete") {
+        pressedKey.children[0].style.fill = "#FF6666";
+        keyDetail.children[0].style.fill = "red";
+    } else {
+        pressedKey.children[0].style.fill = "white";
+        keyDetail.children[0].style.fill = "#666666";
+    }
     setTimeout(() => {
-        keys.children[randomKey].style.fill = "#111111";
-    }, 150);
+        pressedKey.children[0].style.fill = "#111111";
+        keyDetail.children[0].style.fill = "#111111";
+    }, 200);
 }
+
+// function initTime() {
+//     if (!started) {
+//         const startTime = new Date();
+//         started++;
+//         const interval = setInterval(() => {
+//             const currentTime = new Date();
+//             const distance = currentTime.getTime() - startTime.getTime();
+//             const elapsedSeconds = Math.floor(distance / 1000);
+//             if (elapsedSeconds >= 60) {
+//                 clearInterval(interval);
+//             }
+//             let remainingTime = SECONDS - elapsedSeconds;
+//             const timeHeader = document.getElementById("timeHeader");
+//             timeHeader.textContent = `00:${remainingTime}`;
+//         }, 1000);
+//     }
+// }
 
 // 
 document.addEventListener("keydown", (e) => {
     handleKeys(e);
     checkFilledWords(inputedText);
     checkLetters(inputedText);
-    animateKeyboard();
     if (inputedText === parag.textContent) {
         const parag = document.getElementById("parag");
         parag.style.display = "hidden";
@@ -189,12 +221,5 @@ document.addEventListener("keydown", (e) => {
         displaySpans();
     }
 });
-
-setInterval(() => {
-    const passedTime = new Date();
-    let minute = passedTime.getMinutes();
-    let seconds = passedTime.getSeconds();
-    const timeHeader = document.getElementById("timeHeader");
-}, 1000);
 
 fillWithRandom();

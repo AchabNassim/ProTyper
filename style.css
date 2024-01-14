@@ -1,12 +1,13 @@
 :root {
     --mainColor: #00FFFF;
     --secondaryColor: #9900FF;
-    --backgroundColor: #111111;
+    --backgroundColor: rgb(18, 18, 18);
     --successColor:#00CC66;
     --errorColor:#FF6666;
 }
 
 body {
+    height: 80vh;
     background-color: var(--backgroundColor);
     color: #ffffff80;
     font-family: 'Roboto Mono', sans-serif;
@@ -15,8 +16,8 @@ body {
 
 #placeholder {
     margin: 0 auto;
-    height: 60vh;
-    width: 70vw;
+    height: 90vh;
+    width: 60vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,14 +25,14 @@ body {
 }
 
 #timeHeader {
-    font-size: 2.2rem;
+    font-size: 1.2rem;
     text-align: center;
     color: white;
 }
 
 #parag {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
     word-spacing: 0.2rem;
     /* letter-spacing: 0.1rem; */
 }
@@ -58,7 +59,7 @@ body {
 }
 
 .span {
-    opacity: 0;
+    opacity: 0.5;
     display: none;
     transition: 1s ease-in-out;
 }
@@ -126,8 +127,8 @@ body {
 
 #errorSvg {
     display: none;
-    height: 80vh;
-    width: 100vw;
+    height: 90vh;
+    width: 60vw;
 }
 
 #flyingBalloon {
@@ -143,7 +144,18 @@ body {
 }
 
 #keyboardSvg {
-    margin-top: 100px;
-    width: 100vw;
-    height: 25vh;
+    margin-top: 30px;
+    width: 60vw;
+    height: 35vh;
+}
+
+@media only screen and (max-width: 1000px) {
+    #parag {
+        font-size: 1.4rem;
+    }
+    #keyboardSvg {
+        margin-top: 10px;
+        width: 80vw;
+        height: 45vh;
+    }
 }
