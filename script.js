@@ -5,8 +5,12 @@ const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
 let   keySoundIndex = 0;
 
+let finished = 0;
+let timeoutId;
 let inputedText = "";
+
 let started = 0;
+let startTime;
 
 for (let i = 0; i < 5; i++) {
     keySounds[i] = new Audio(`audio/key${i + 1}.mp3`);
@@ -156,7 +160,7 @@ function handleKeys(e) {
         deleteKeySound.play();
         animateKeyboard("delete");
     } else if (e.key.length === 1 && regex.test(e.key)) {
-        // initTime();
+        initTimer();
         inputedText += e.key;
         if (keySoundIndex > 4) {
             keySoundIndex = 0;
@@ -188,23 +192,29 @@ function animateKeyboard (key) {
     }, 200);
 }
 
-// function initTime() {
-//     if (!started) {
-//         const startTime = new Date();
-//         started++;
-//         const interval = setInterval(() => {
-//             const currentTime = new Date();
-//             const distance = currentTime.getTime() - startTime.getTime();
-//             const elapsedSeconds = Math.floor(distance / 1000);
-//             if (elapsedSeconds >= 60) {
-//                 clearInterval(interval);
-//             }
-//             let remainingTime = SECONDS - elapsedSeconds;
-//             const timeHeader = document.getElementById("timeHeader");
-//             timeHeader.textContent = `00:${remainingTime}`;
-//         }, 1000);
-//     }
-// }
+function timer() {
+    const header = document.getElementById("timeHeader");
+    const currentTime = new Date();
+    const distanceInSeconds = Math.floor((currentTime - startTime) / 1000);
+    if (distanceInSeconds >= 60) {
+        const parag = document.getElementById("parag");
+        parag.style.opacity = "0";
+        header.textContent = `${document.getElementsByClassName("completed").length / 1}`;
+        clearTimeout(timeoutId);
+    } else {
+        const time = SECONDS - distanceInSeconds - 1;
+        header.textContent = `00:${time >= 10 ? time : "0" + time}`;
+        timeoutId = setTimeout(timer, 1000);
+    }
+}
+
+function initTimer() {
+    if (!started) {
+        started++;
+        startTime = new Date();
+        timer();
+    }
+}
 
 // 
 document.addEventListener("keydown", (e) => {
@@ -212,6 +222,7 @@ document.addEventListener("keydown", (e) => {
     checkFilledWords(inputedText);
     checkLetters(inputedText);
     if (inputedText === parag.textContent) {
+        finished = 1;
         const parag = document.getElementById("parag");
         parag.style.display = "hidden";
         // finished all the words, hide the content and display a message with the wpm calculation.

@@ -16,23 +16,23 @@ body {
 
 #placeholder {
     margin: 0 auto;
-    height: 90vh;
+    height: 70vh;
     width: 60vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 }
 
 #timeHeader {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     text-align: center;
     color: white;
 }
 
 #parag {
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 2rem;
     word-spacing: 0.2rem;
     /* letter-spacing: 0.1rem; */
 }
@@ -68,6 +68,66 @@ body {
     opacity: 1;
     display: inline;
 }
+
+/* #logoPlaceholder {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+}
+
+#logoSvg {
+    width: 5vw;
+    height: 5vh;
+}
+
+#schoolName {
+    font-style: 'Roboto Mono';
+    font-weight: 500;
+    letter-spacing: 0.5rem;
+    animation: 4s changeColor infinite linear;
+} */
+
+#errorSvg {
+    display: none;
+    height: 90vh;
+    width: 60vw;
+}
+
+#flyingBalloon {
+    animation: balloonUpDown 6s infinite linear;
+}
+
+#leftPlanets path {
+    animation: leftPlanets 6s infinite linear;
+}
+
+#rightPlanets path {
+    animation: rightPlanets 6s infinite linear;
+}
+
+#keyboardSvg {
+    margin-top: 30px;
+    width: 40vw;
+    height: 35vh;
+}
+
+/* @keyframes changeColor {
+    0% {
+        fill: #ffffffbf;
+    }
+    25% {
+        fill: #ffffff8e;
+    }
+    50% {
+        fill: #00cc66aa;
+    }
+    75% {
+        fill: #ffffff8e;
+    }
+    100% {
+        fill: #ffffffbf;
+    }
+}  */
 
 @keyframes leftPlanets {
     0% {
@@ -123,30 +183,6 @@ body {
     100% {
         transform: translateY(0) translateX(0);
     }
-}
-
-#errorSvg {
-    display: none;
-    height: 90vh;
-    width: 60vw;
-}
-
-#flyingBalloon {
-    animation: balloonUpDown 6s infinite linear;
-}
-
-#leftPlanets path {
-    animation: leftPlanets 6s infinite linear;
-}
-
-#rightPlanets path {
-    animation: rightPlanets 6s infinite linear;
-}
-
-#keyboardSvg {
-    margin-top: 30px;
-    width: 60vw;
-    height: 35vh;
 }
 
 @media only screen and (max-width: 1000px) {
