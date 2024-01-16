@@ -1,5 +1,5 @@
 const SECONDS = 60;
-const NUMBERWORDS = 200;
+const NUMBERWORDS = 3000;
 const DISPLAYEDAMMOUNT = 6;
 const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
@@ -10,7 +10,6 @@ let timeoutId;
 let inputedText = "";
 
 let started = 0;
-let startTime;
 
 for (let i = 0; i < 5; i++) {
     keySounds[i] = new Audio(`audio/key${i + 1}.mp3`);
@@ -122,16 +121,18 @@ const fillWithRandom = async () => {
         const words = await response.json();
         const parag = document.getElementById("parag");
         words.map((value, key) => {
-            let span = document.createElement("span");
-            span.classList.add("span");
-            if (key === 0) {
-                span.classList.add("highlighted");
+            if (value.length <= 6) {
+                let span = document.createElement("span");
+                span.classList.add("span");
+                if (key === 0) {
+                    span.classList.add("highlighted");
+                }
+                if (key != words.length - 1)
+                    appendSpanContent(span, value + " ");
+                else
+                    appendSpanContent(span, value);
+                parag.appendChild(span);
             }
-            if (key != words.length - 1)
-                appendSpanContent(span, value + " ");
-            else
-                appendSpanContent(span, value);
-            parag.appendChild(span);
         })
         initSpans();
     } catch (error) {
@@ -199,7 +200,7 @@ function timer() {
     if (distanceInSeconds >= 60) {
         const parag = document.getElementById("parag");
         parag.style.opacity = "0";
-        header.textContent = `${document.getElementsByClassName("completed").length / 1}`;
+        header.textContent = `${document.getElementsByClassName("completed").length / 1} WPM`;
         clearTimeout(timeoutId);
     } else {
         const time = SECONDS - distanceInSeconds - 1;
