@@ -112,7 +112,7 @@ function checkLetters(value) {
 // };
 
 // Call the random words api, you can specify how many random words you want
-const fillWithRandom = async () => {
+const fillWithRandom = async (wordLength) => {
     try {
         const response = await fetch(`https://random-word-api.herokuapp.com/word?number=${NUMBERWORDS}`);
         if (!response.ok) {
@@ -121,7 +121,7 @@ const fillWithRandom = async () => {
         const words = await response.json();
         const parag = document.getElementById("parag");
         words.map((value, key) => {
-            if (value.length <= 6) {
+            if (value.length <= wordLength) {
                 let span = document.createElement("span");
                 span.classList.add("span");
                 if (key === 0) {
@@ -234,4 +234,4 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-fillWithRandom();
+fillWithRandom(5);
