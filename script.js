@@ -1,6 +1,6 @@
 const SECONDS = 60;
 const NUMBERWORDS = 3000;
-const DISPLAYEDAMMOUNT = 6;
+const DISPLAYEDAMMOUNT = 20;
 const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
 let   keySoundIndex = 0;
@@ -198,6 +198,7 @@ function timer() {
     const currentTime = new Date();
     const distanceInSeconds = Math.floor((currentTime - startTime) / 1000);
     if (distanceInSeconds >= 60) {
+        finished = 1;
         const parag = document.getElementById("parag");
         parag.style.opacity = "0";
         header.textContent = `${document.getElementsByClassName("completed").length / 1} WPM`;
@@ -219,18 +220,22 @@ function initTimer() {
 
 // 
 document.addEventListener("keydown", (e) => {
-    handleKeys(e);
-    checkFilledWords(inputedText);
-    checkLetters(inputedText);
-    if (inputedText === parag.textContent) {
-        finished = 1;
-        const parag = document.getElementById("parag");
-        parag.style.display = "hidden";
-        // finished all the words, hide the content and display a message with the wpm calculation.
-    }
-    const completedWords = document.getElementsByClassName("completed");
-    if (completedWords.length > 0 && completedWords.length % DISPLAYEDAMMOUNT === 0) {
-        displaySpans();
+    if (!finished) {
+        handleKeys(e);
+        checkFilledWords(inputedText);
+        checkLetters(inputedText);
+        if (inputedText === parag.textContent) {
+            finished = 1;
+            const parag = document.getElementById("parag");
+            parag.style.opacity = "0";
+            header.textContent = `${document.getElementsByClassName("completed").length / 1} WPM`;
+            // finished all the words, hide the content and display a message with the wpm calculation.
+        } else {
+            const completedWords = document.getElementsByClassName("completed");
+            if (completedWords.length > 0 && completedWords.length % DISPLAYEDAMMOUNT === 0) {
+                displaySpans();
+            }
+        }
     }
 });
 
