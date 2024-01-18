@@ -16,7 +16,7 @@ body {
 }
 
 #placeholder {
-    margin: 100px auto;
+    margin: 80px auto;
     /* height: 60vh; */
     width: 60vw;
     display: flex;
@@ -26,7 +26,7 @@ body {
 }
 
 #timeHeader {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     text-align: center;
     color: white;
 }
@@ -77,11 +77,10 @@ body {
 }
 
 #logoSvg {
-    width: 5vw;
-    height: 5vh;
-}
+    margin-left: 10px;
+} */
 
-#schoolName {
+/* #schoolName {
     font-style: 'Roboto Mono';
     font-weight: 500;
     letter-spacing: 0.5rem;
@@ -90,8 +89,7 @@ body {
 
 #errorSvg {
     display: none;
-    height: 90vh;
-    width: 60vw;
+    height: 70vh;
 }
 
 #flyingBalloon {
