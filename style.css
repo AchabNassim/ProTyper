@@ -15,7 +15,7 @@ body {
     font-style: normal;
 }
 
-#placeholder {
+#gameContainer {
     margin: 15vh auto;
     /* height: 60vh; */
     width: 40vw;
@@ -72,7 +72,7 @@ body {
     display: inline;
 }
 
-/* #logoPlaceholder {
+/* #logoContainer {
     display: flex;
     align-items: center;
     padding-top: 20px;
@@ -108,8 +108,26 @@ body {
 
 #keyboardSvg {
     margin-top: 30px;
-    width: 35vw;
+    width: 40vw;
     height: 30vh;
+}
+
+#wpmContainer {
+    display: none;
+    margin: 15vh auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: column; */
+    /* height: 30vh; */
+    width: 20vw;
+    height: 20vh;
+}
+
+#wpmHeader , #wpmMistakes {
+    font-size: 1.2rem;
+    text-align: center;
+    color: white;
 }
 
 /* @keyframes changeColor {
@@ -192,7 +210,7 @@ body {
     }
     #keyboardSvg {
         margin-top: 10px;
-        width: 80vw;
-        height: 45vh;
+        width: 45vw;
+        height: 25vh;
     }
 }

@@ -14,7 +14,7 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- <div id="logoPlaceholder">
+    <!-- <div id="logoContainer">
         <a href="#">
             <svg width="80" height="60" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" id="logoSvg">
                 <g id="logo">
@@ -28,7 +28,7 @@
             </svg> 
         </a> 
     </div> -->
-    <div id="placeholder">
+    <div id="gameContainer">
         <h2 id="timeHeader">01:00</h2>
         <!-- needs to display the current wpm -->
         <p id="parag"></p>
@@ -101,7 +101,7 @@
             </clipPath>
             </defs>
         </svg>
-        <div id="keyboardSvgPlaceholder">
+        <div id="keyboardSvgContainer">
             <svg width="762" height="252" viewBox="0 0 762 252" fill="none" xmlns="http://www.w3.org/2000/svg" id="keyboardSvg">
                 <g id="keyboard">
                 <g id="Group">
@@ -459,8 +459,9 @@
             </svg>                            
         </div>                                                              
     </div>
-    <div id="wpmInfo">
-        <p></p>
+    <div id="wpmContainer">
+        <p id="wpmHeader"></p>
+        <p id="wpmMistakes"></p>
     </div>
     <script src="script.js"></script>
 </body>

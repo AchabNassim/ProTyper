@@ -7,12 +7,15 @@ let   keySoundIndex = 0;
 
 let finished = 0;
 let timeoutId;
-let inputedText = "";
-
 let started = 0;
 
-for (let i = 0; i < 5; i++) {
-    keySounds[i] = new Audio(`audio/key${i + 1}.mp3`);
+let mistakes = 0;
+let inputedText = "";
+
+function initSounds() {
+    for (let i = 0; i < 5; i++) {
+        keySounds[i] = new Audio(`audio/key${i + 1}.mp3`);
+    }
 }
 
 function initSpans() {
@@ -75,6 +78,7 @@ function checkLetters(value) {
             letterTags[i].classList.replace("wrong", "correct");
         }
         else {
+            mistakes++;
             if (!letterTags[i].classList.contains("correct"))
                 letterTags[i].classList.add("wrong");
             letterTags[i].classList.replace("correct", "wrong");
@@ -145,45 +149,6 @@ const fillWithRandom = async (wordLength) => {
     }
 };
 
-function playSound(sound) {
-    if (sound === "delete") {
-        deleteKeySound.play();
-    } else {
-        if (keySoundIndex > 4) {
-            keySoundIndex = 0;
-        }
-        keySounds[keySoundIndex].play();
-        keySoundIndex++;
-    }
-}
-
-function handleKeys(e) {
-    const regex = /^[a-zA-Z ]/;
-    const p = document.getElementById("parag");
-    if (!p.hasChildNodes()) {
-        console.log("error\n");
-        return ;
-    }
-    if (e.key == "Backspace" || e.key == "Delete") {
-        const   letterTags = document.getElementsByClassName("letters");
-        if (inputedText.length > 0 && inputedText.length <= letterTags.length) {
-            letterTags[inputedText.length - 1].classList.remove("correct", "wrong");
-        }
-        inputedText = inputedText.substring(0, inputedText.length - 1);
-        playSound();
-        animateKeyboard("delete");
-    } else if (e.key.length === 1 && regex.test(e.key)) {
-        initTimer();
-        inputedText += e.key;
-        playSound();
-        if (e.key !== " ") {
-            animateKeyboard(e.key);
-        } else {
-            animateKeyboard("space");
-        }
-    }
-}
-
 function animateKeyboard (key) {
     const pressedKey = document.getElementById(`${key}Key`);
     const keyDetail = document.getElementById(`${key}Detail`);
@@ -201,15 +166,66 @@ function animateKeyboard (key) {
     }, 200);
 }
 
+function playSound(sound) {
+    if (sound === "delete") {
+        deleteKeySound.play();
+    } else {
+        if (keySoundIndex > 4) {
+            keySoundIndex = 0;
+        }
+        keySounds[keySoundIndex].play();
+        keySoundIndex++;
+    }
+}
+
+function handleKeys(e) {
+    const regex = /^[a-zA-Z ]/;
+    const p = document.getElementById("parag");
+    const wrongLetters = document.getElementsByClassName("wrong");
+    if (!p.hasChildNodes()) {
+        console.log("error\n");
+        return ;
+    }
+    if (e.key == "Backspace" || e.key == "Delete") {
+        const   letterTags = document.getElementsByClassName("letters");
+        if (inputedText.length > 0 && inputedText.length <= letterTags.length) {
+            letterTags[inputedText.length - 1].classList.remove("correct", "wrong");
+        }
+        inputedText = inputedText.substring(0, inputedText.length - 1);
+        playSound();
+        animateKeyboard("delete");
+    } else if (e.key.length === 1 && regex.test(e.key) && wrongLetters.length == 0) {
+        initTimer();
+        inputedText += e.key;
+        playSound();
+        if (e.key !== " ") {
+            animateKeyboard(e.key);
+        } else {
+            animateKeyboard("space");
+        }
+    }
+}
+
+function gameEnd() {
+    const numberCompleted = document.getElementsByClassName("completed").length;
+    const gameContainer = document.getElementById("gameContainer");
+    const wpmContainer = document.getElementById("wpmContainer");
+    const wpmHeader = document.getElementById("wpmHeader");
+    // const wpmMistakes = document.getElementById("wpmMistakes");
+
+    finished = 1;
+    gameContainer.style.display = "none";
+    wpmContainer.style.display = "block";
+    wpmHeader.textContent = `${numberCompleted / 1} WPM`
+    // wpmMistakes.textContent = `${mistakes} mistakes`;
+}
+
 function timer() {
     const header = document.getElementById("timeHeader");
     const currentTime = new Date();
     const distanceInSeconds = Math.floor((currentTime - startTime) / 1000);
-    if (distanceInSeconds >= 60) {
-        finished = 1;
-        const parag = document.getElementById("parag");
-        parag.style.opacity = "0";
-        header.textContent = `${document.getElementsByClassName("completed").length / 1} WPM`;
+    if (distanceInSeconds >= SECONDS) {
+        gameEnd();
         clearTimeout(timeoutId);
     } else {
         const time = SECONDS - distanceInSeconds - 1;
@@ -233,11 +249,7 @@ document.addEventListener("keydown", (e) => {
         checkFilledWords(inputedText);
         checkLetters(inputedText);
         if (inputedText === parag.textContent) {
-            finished = 1;
-            const parag = document.getElementById("parag");
-            parag.style.opacity = "0";
-            header.textContent = `${document.getElementsByClassName("completed").length / 1} WPM`;
-            // finished all the words, hide the content and display a message with the wpm calculation.
+            gameEnd();
         } else {
             const completedWords = document.getElementsByClassName("completed");
             if (completedWords.length > 0 && completedWords.length % DISPLAYEDAMMOUNT === 0) {
@@ -248,3 +260,4 @@ document.addEventListener("keydown", (e) => {
 });
 
 fillWithRandom(5);
+initSounds();
