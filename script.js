@@ -145,6 +145,18 @@ const fillWithRandom = async (wordLength) => {
     }
 };
 
+function playSound(sound) {
+    if (sound === "delete") {
+        deleteKeySound.play();
+    } else {
+        if (keySoundIndex > 4) {
+            keySoundIndex = 0;
+        }
+        keySounds[keySoundIndex].play();
+        keySoundIndex++;
+    }
+}
+
 function handleKeys(e) {
     const regex = /^[a-zA-Z ]/;
     const p = document.getElementById("parag");
@@ -158,16 +170,12 @@ function handleKeys(e) {
             letterTags[inputedText.length - 1].classList.remove("correct", "wrong");
         }
         inputedText = inputedText.substring(0, inputedText.length - 1);
-        deleteKeySound.play();
+        playSound();
         animateKeyboard("delete");
     } else if (e.key.length === 1 && regex.test(e.key)) {
         initTimer();
         inputedText += e.key;
-        if (keySoundIndex > 4) {
-            keySoundIndex = 0;
-        }
-        keySounds[keySoundIndex].play();
-        keySoundIndex++;
+        playSound();
         if (e.key !== " ") {
             animateKeyboard(e.key);
         } else {
