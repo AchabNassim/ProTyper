@@ -5,6 +5,7 @@ const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
 let   keySoundIndex = 0;
 
+let stoppage = 0;
 let finished = 0;
 let timeoutId;
 let inputedText = "";
@@ -75,6 +76,8 @@ function checkLetters(value) {
             letterTags[i].classList.replace("wrong", "correct");
         }
         else {
+            if (letterTags[i].textContent === " ")
+                stoppage = 1;
             if (!letterTags[i].classList.contains("correct"))
                 letterTags[i].classList.add("wrong");
             letterTags[i].classList.replace("correct", "wrong");
@@ -168,11 +171,13 @@ function handleKeys(e) {
         const   letterTags = document.getElementsByClassName("letters");
         if (inputedText.length > 0 && inputedText.length <= letterTags.length) {
             letterTags[inputedText.length - 1].classList.remove("correct", "wrong");
+            if (stoppage)
+                stoppage = 0;
         }
         inputedText = inputedText.substring(0, inputedText.length - 1);
         playSound();
         animateKeyboard("delete");
-    } else if (e.key.length === 1 && regex.test(e.key)) {
+    } else if (e.key.length === 1 && regex.test(e.key) && !stoppage) {
         initTimer();
         inputedText += e.key;
         playSound();
