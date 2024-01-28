@@ -11,6 +11,7 @@ let timeoutId;
 let inputedText = "";
 
 let started = 0;
+let filledParags = 0;
 
 for (let i = 0; i < 5; i++) {
     keySounds[i] = new Audio(`audio/key${i + 1}.mp3`);
@@ -119,7 +120,7 @@ const fillWithRandom = async (wordLength) => {
     try {
         const response = await fetch(`https://random-word-api.herokuapp.com/word?number=${NUMBERWORDS}`);
         if (!response.ok) {
-            console.log("error");
+            console.log(response);
         }
         const words = await response.json();
         const parag = document.getElementById("parag");
@@ -138,6 +139,7 @@ const fillWithRandom = async (wordLength) => {
             }
         })
         initSpans();
+        filledParags = 1;
     } catch (error) {
         const errorSvg = document.getElementById("errorSvg");
         const keyboardSvg = document.getElementById("keyboardSvg");
@@ -162,11 +164,6 @@ function playSound(sound) {
 
 function handleKeys(e) {
     const regex = /^[a-zA-Z ]/;
-    const p = document.getElementById("parag");
-    if (!p.hasChildNodes()) {
-        console.log("error\n");
-        return ;
-    }
     if (e.key == "Backspace" || e.key == "Delete") {
         const   letterTags = document.getElementsByClassName("letters");
         if (inputedText.length > 0 && inputedText.length <= letterTags.length) {
@@ -233,7 +230,7 @@ function initTimer() {
 
 // 
 document.addEventListener("keydown", (e) => {
-    if (!finished) {
+    if (!finished && filledParags) {
         handleKeys(e);
         checkFilledWords(inputedText);
         checkLetters(inputedText);
