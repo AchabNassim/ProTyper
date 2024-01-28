@@ -46,14 +46,14 @@ body {
 }
 
 .letters {
-    background-color: rgba(255, 255, 255, 0.010);
+    background-color: rgba(255, 255, 255, 0.015);
 }
 
 .correct {
     color: var(--successColor);
     text-decoration: underline;
     text-decoration-color: var(--successColor);
-    background-color: rgba(255, 255, 255, 0.030);
+    background-color: rgba(255, 255, 255, 0.035);
 }
 
 .wrong {
