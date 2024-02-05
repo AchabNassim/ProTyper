@@ -207,7 +207,7 @@ function timer() {
     const header = document.getElementById("timeHeader");
     const currentTime = new Date();
     const distanceInSeconds = Math.floor((currentTime - startTime) / 1000);
-    if (distanceInSeconds >= 60) {
+    if (distanceInSeconds >= SECONDS) {
         finished = 1;
         const parag = document.getElementById("parag");
         parag.style.opacity = "0";
@@ -228,25 +228,25 @@ function initTimer() {
     }
 }
 
-// 
-document.addEventListener("keydown", (e) => {
+function keyDownHandler(e) {
     if (!finished && filledParags) {
         handleKeys(e);
         checkFilledWords(inputedText);
         checkLetters(inputedText);
-        if (inputedText === parag.textContent) {
-            finished = 1;
-            const parag = document.getElementById("parag");
-            parag.style.opacity = "0";
-            header.textContent = `${document.getElementsByClassName("completed").length / 1} WPM`;
-            // finished all the words, hide the content and display a message with the wpm calculation.
-        } else {
-            const completedWords = document.getElementsByClassName("completed");
-            if (completedWords.length > 0 && completedWords.length % DISPLAYEDAMMOUNT === 0) {
-                displaySpans();
-            }
+
+        const completedWords = document.getElementsByClassName("completed");
+        if (completedWords.length > 0 && completedWords.length % DISPLAYEDAMMOUNT === 0) {
+            displaySpans();
         }
     }
-});
+}
 
-fillWithRandom(5);
+//
+function init() {
+    fillWithRandom(5);
+    document.addEventListener("keydown", (e) => {
+        keyDownHandler(e);
+    });
+}
+
+init();
