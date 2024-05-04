@@ -33,11 +33,11 @@ body {
 
 #parag {
     text-align: center;
-    width: 40vw;
+    width: 50vw;
     font-size: 1.3rem;
     word-spacing: 0.2rem;
     font-weight: 500;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     /* background-color: rgba(255, 255, 255, 0.010); */
     /* letter-spacing: 0.1rem; */
 }
