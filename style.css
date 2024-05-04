@@ -16,7 +16,7 @@ body {
 }
 
 #placeholder {
-    margin: 15vh auto;
+    margin: 20vh auto;
     /* height: 60vh; */
     width: 40vw;
     display: flex;
@@ -33,10 +33,11 @@ body {
 
 #parag {
     text-align: center;
-    width: 33vw;
-    font-size: 1.2rem;
+    width: 40vw;
+    font-size: 1.3rem;
     word-spacing: 0.2rem;
     font-weight: 500;
+    margin-bottom: 60px;
     /* background-color: rgba(255, 255, 255, 0.010); */
     /* letter-spacing: 0.1rem; */
 }
@@ -51,8 +52,7 @@ body {
 
 .correct {
     color: var(--successColor);
-    text-decoration: underline;
-    text-decoration-color: var(--successColor);
+    box-shadow: rgb(255, 255, 255) 0px 25px 20px -20px;
     background-color: rgba(255, 255, 255, 0.035);
 }
 
