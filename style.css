@@ -16,7 +16,7 @@ body {
 }
 
 #placeholder {
-    margin: 20vh auto;
+    margin: 10vh auto;
     /* height: 60vh; */
     width: 40vw;
     display: flex;
@@ -33,11 +33,10 @@ body {
 
 #parag {
     text-align: center;
-    width: 50vw;
-    font-size: 1.3rem;
+    width: 40vw;
+    font-size: 1.2rem;
     word-spacing: 0.2rem;
     font-weight: 500;
-    margin-bottom: 20px;
     /* background-color: rgba(255, 255, 255, 0.010); */
     /* letter-spacing: 0.1rem; */
 }
@@ -113,24 +112,6 @@ body {
     width: 35vw;
     height: 30vh;
 }
-
-/* @keyframes changeColor {
-    0% {
-        fill: #ffffffbf;
-    }
-    25% {
-        fill: #ffffff8e;
-    }
-    50% {
-        fill: #00cc66aa;
-    }
-    75% {
-        fill: #ffffff8e;
-    }
-    100% {
-        fill: #ffffffbf;
-    }
-}  */
 
 @keyframes leftPlanets {
     0% {

@@ -1,6 +1,6 @@
 const SECONDS = 60;
 const NUMBERWORDS = 3000;
-const DISPLAYEDAMMOUNT = 26;
+const DISPLAYEDAMMOUNT = 20;
 const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
 let   keySoundIndex = 0;
