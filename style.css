@@ -7,6 +7,7 @@
 }
 
 body {
+    font-style: normal;
     min-height: 80vh;
     height: 80vh;
     background-color: var(--backgroundColor);
@@ -33,10 +34,11 @@ body {
 
 #parag {
     text-align: center;
-    width: 40vw;
-    font-size: 1.2rem;
-    word-spacing: 0.2rem;
-    font-weight: 500;
+    width: 50vw;
+    font-size: 1.3rem;
+    word-spacing: 0.1rem;
+    line-height: 35px;
+    font-weight: 00;
     /* background-color: rgba(255, 255, 255, 0.010); */
     /* letter-spacing: 0.1rem; */
 }
