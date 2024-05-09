@@ -1,5 +1,5 @@
 const SECONDS = 60;
-const NUMBERWORDS = 3000;
+const NUMBERWORDS = 300;
 const DISPLAYEDAMMOUNT = 20;
 const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
@@ -19,7 +19,7 @@ for (let i = 0; i < 5; i++) {
 
 function initSpans() {
     const spans = document.getElementsByClassName("span");
-    for (let i = 0; i < DISPLAYEDAMMOUNT; i++) {
+    for (let i = 0; i < spans.length && i < DISPLAYEDAMMOUNT; i++) {
         spans[i].classList.add("visible");
     }
 }
@@ -28,7 +28,7 @@ function initSpans() {
 function displaySpans() {
     const spans = document.getElementsByClassName("span");
     const completed = document.getElementsByClassName("completed");
-    if (completed.length === NUMBERWORDS) {
+    if (completed.length === spans.length) {
         return ;
     }
     for (let i = 0; i < completed.length; i++) {
@@ -36,7 +36,7 @@ function displaySpans() {
             spans[i].classList.remove("visible");
         }
     }
-    for (let i = completed.length - 1; i < completed.length + DISPLAYEDAMMOUNT && i < NUMBERWORDS; i++) {
+    for (let i = completed.length - 1; i < completed.length + DISPLAYEDAMMOUNT && i < spans.length; i++) {
         spans[i].classList.add("visible");
     }
 }
@@ -86,69 +86,40 @@ function checkLetters(value) {
     }
 }
 
-
-// Call the random quote api
-// const fillWithQuotes = async () => {
+// Call the random words api, you can specify how many random words you want
+// const fillWithRandom = async (wordLength) => {
 //     try {
-//         const response = await fetch("https://api.quotable.io/quotes/random");
+//         const response = await fetch(`https://random-word-api.herokuapp.com/word?number=${NUMBERWORDS}`);
 //         if (!response.ok) {
-//             throw new Error("HTTP error");
+//             console.log(response);
 //         }
-//         const quote = await response.json();
+//         const words = await response.json();
 //         const parag = document.getElementById("parag");
-//         let   length = quote[0].content.split(" ").length;
-//         quote[0].content.split(" ").map((value, key) => {
-//             let span = document.createElement("span");
-//             if (key === 0) {
-//                 span.classList.add("highlighted");
+//         words.map((value, key) => {
+//             if (value.length <= wordLength) {
+//                 let span = document.createElement("span");
+//                 span.classList.add("span");
+//                 if (key === 0) {
+//                     span.classList.add("highlighted");
+//                 }
+//                 if (key != words.length - 1)
+//                     appendSpanContent(span, value + " ");
+//                 else
+//                     appendSpanContent(span, value);
+//                 parag.appendChild(span);
 //             }
-//             if (key !== length -1)
-//                 appendSpanContent(span, value + " ");
-//         else
-//                 appendSpanContent(span, value);
-//             parag.appendChild(span);
 //         })
+//         initSpans();
+//         filledParags = 1;
 //     } catch (error) {
-//         const svg = document.getElementById("svg");
-//         svg.style.display = "block";
-//         console.error(error.message);
+//         const errorSvg = document.getElementById("errorSvg");
+//         const keyboardSvg = document.getElementById("keyboardSvgPlaceholder");
+//         const timeHeader = document.getElementById("timeHeader");
+//         errorSvg.style.display = "block";
+//         keyboardSvg.style.display = "none";
+//         timeHeader.style.display = "none";
 //     }
 // };
-
-// Call the random words api, you can specify how many random words you want
-const fillWithRandom = async (wordLength) => {
-    try {
-        const response = await fetch(`https://random-word-api.herokuapp.com/word?number=${NUMBERWORDS}`);
-        if (!response.ok) {
-            console.log(response);
-        }
-        const words = await response.json();
-        const parag = document.getElementById("parag");
-        words.map((value, key) => {
-            if (value.length <= wordLength) {
-                let span = document.createElement("span");
-                span.classList.add("span");
-                if (key === 0) {
-                    span.classList.add("highlighted");
-                }
-                if (key != words.length - 1)
-                    appendSpanContent(span, value + " ");
-                else
-                    appendSpanContent(span, value);
-                parag.appendChild(span);
-            }
-        })
-        initSpans();
-        filledParags = 1;
-    } catch (error) {
-        const errorSvg = document.getElementById("errorSvg");
-        const keyboardSvg = document.getElementById("keyboardSvg");
-        const timeHeader = document.getElementById("timeHeader");
-        errorSvg.style.display = "block";
-        keyboardSvg.style.display = "none";
-        timeHeader.style.display = "none";
-    }
-};
 
 function playSound(sound) {
     if (sound === "delete") {
@@ -203,16 +174,21 @@ function animateKeyboard (key) {
     }, 200);
 }
 
+function endGame(time) {
+    finished = 1;
+    const header = document.getElementById("timeHeader");
+    const parag = document.getElementById("parag");
+    parag.style.opacity = "0";
+    header.textContent = `${document.getElementsByClassName("completed").length / time} WPM`;
+    clearTimeout(timeoutId);
+}
+
 function timer() {
     const header = document.getElementById("timeHeader");
     const currentTime = new Date();
     const distanceInSeconds = Math.floor((currentTime - startTime) / 1000);
     if (distanceInSeconds >= SECONDS) {
-        finished = 1;
-        const parag = document.getElementById("parag");
-        parag.style.opacity = "0";
-        header.textContent = `${document.getElementsByClassName("completed").length / 1} WPM`;
-        clearTimeout(timeoutId);
+        endGame(1);
     } else {
         const time = SECONDS - distanceInSeconds - 1;
         header.textContent = `00:${time >= 10 ? time : "0" + time}`;
@@ -235,6 +211,9 @@ function keyDownHandler(e) {
         checkLetters(inputedText);
 
         const completedWords = document.getElementsByClassName("completed");
+        if (completedWords.length === document.getElementsByTagName("span").length) {
+            endGame(1);
+        }
         if (completedWords.length > 0 && completedWords.length % DISPLAYEDAMMOUNT === 0) {
             displaySpans();
         }
@@ -242,8 +221,64 @@ function keyDownHandler(e) {
 }
 
 //
+
+function shuffleWords(words) {
+    const arr = [];
+    let added = 0;
+    while (added < words.length && added < NUMBERWORDS) {
+        const randomNumber = Math.floor(Math.random() * words.length);
+        const randomWord = words[randomNumber];
+        if (!arr.includes(randomWord)) {
+            arr.push(randomWord);
+        } 
+        added++;
+    }
+    return arr;
+}
+
+const fetchJson = async (type) => {
+    try {
+        const response = await fetch(`database/database.json`);
+        if (!response.ok) {
+            console.log(response);
+        }
+        const database = await response.json();
+        let words = [];
+        if (type == "other" || type === undefined) {
+            const {fruits, foods, animals, difficultLexical, easyLexical, nature, other} = database;
+            words = [...fruits, ...foods, ...animals, ...difficultLexical, ...easyLexical, ...nature, ...other];
+        } else {
+            words = database[type];
+        }
+        const shuffledWords = shuffleWords(words);
+        const parag = document.getElementById("parag");
+        shuffledWords.map((value, key) => {
+            let span = document.createElement("span");
+            span.classList.add("span");
+            if (key === 0) {
+                span.classList.add("highlighted");
+            }
+            if (key != words.length - 1)
+                appendSpanContent(span, value + " ");
+            else
+                appendSpanContent(span, value);
+            parag.appendChild(span);
+        })
+        initSpans();
+        filledParags = 1;
+    } catch (error) {
+        console.log(error);
+        const errorSvg = document.getElementById("errorSvg");
+        const keyboardSvg = document.getElementById("keyboardSvgPlaceholder");
+        const timeHeader = document.getElementById("timeHeader");
+        errorSvg.style.display = "block";
+        keyboardSvg.style.display = "none";
+        timeHeader.style.display = "none";
+    }
+};
+
 function init() {
-    fillWithRandom(5);
+    fetchJson();
     document.addEventListener("keydown", (e) => {
         keyDownHandler(e);
     });
