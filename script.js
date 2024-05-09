@@ -1,6 +1,6 @@
 const SECONDS = 60;
 const NUMBERWORDS = 300;
-const DISPLAYEDAMMOUNT = 20;
+const DISPLAYEDAMMOUNT = 24;
 const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
 let   keySoundIndex = 0;
@@ -162,15 +162,18 @@ function animateKeyboard (key) {
     const keyDetail = document.getElementById(`${key}Detail`);
 
     if (key == "delete") {
-        pressedKey.children[0].style.fill = "#FF6666";
+        pressedKey.children[0].style.fill = "#FF6E6A";
         keyDetail.children[0].style.fill = "red";
+    } else if (key == "space") {
+        pressedKey.children[0].style.fill = "#F1FAFF";
+        keyDetail.children[0].style.fill = "#0097FA";
     } else {
-        pressedKey.children[0].style.fill = "white";
-        keyDetail.children[0].style.fill = "#666666";
+        pressedKey.children[0].style.fill = "#F1FAFF";
+        keyDetail.children[0].style.fill = "#9299A4";
     }
     setTimeout(() => {
-        pressedKey.children[0].style.fill = "#111111";
-        keyDetail.children[0].style.fill = "#111111";
+        pressedKey.children[0].style.fill = "#222831";
+        keyDetail.children[0].style.fill = "#222831";
     }, 200);
 }
 

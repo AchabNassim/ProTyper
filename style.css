@@ -1,9 +1,9 @@
 :root {
     --mainColor: #00FFFF;
     --secondaryColor: #9900FF;
-    --backgroundColor: #121212;
-    --successColor:#00CC66;
-    --errorColor:#FF6666;
+    --backgroundColor: #222831;
+    --successColor:#00C6B9;
+    --errorColor:#FF6E6A;
 }
 
 body {
@@ -11,7 +11,7 @@ body {
     min-height: 80vh;
     height: 80vh;
     background-color: var(--backgroundColor);
-    color: #ffffff80;
+    color: #EFF7FF;
     font-family: 'Roboto Mono', sans-serif;
     font-style: normal;
 }
@@ -19,7 +19,7 @@ body {
 #placeholder {
     margin: 10vh auto;
     /* height: 60vh; */
-    width: 40vw;
+    width: 50vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -29,7 +29,7 @@ body {
 #timeHeader {
     font-size: 1rem;
     text-align: center;
-    color: white;
+    /* color: white; */
 }
 
 #parag {
@@ -48,20 +48,19 @@ body {
 }
 
 .letters {
-    background-color: rgba(255, 255, 255, 0.015);
+    background-color: #9299a40c;
 }
 
 .correct {
     color: var(--successColor);
-    box-shadow: rgb(255, 255, 255) 0px 25px 20px -20px;
-    background-color: rgba(255, 255, 255, 0.035);
+    background-color: #e1f5f20c;
 }
 
 .wrong {
     color: var(--errorColor);
     text-decoration: underline;
     text-decoration-color: var(--errorColor);
-    background-color: #ff66664f;
+    background-color: #ff6f6a1a;
 }
 
 .span {
@@ -74,23 +73,6 @@ body {
     opacity: 1;
     display: inline;
 }
-
-/* #logoPlaceholder {
-    display: flex;
-    align-items: center;
-    padding-top: 20px;
-}
-
-#logoSvg {
-    margin-left: 10px;
-} */
-
-/* #schoolName {
-    font-style: 'Roboto Mono';
-    font-weight: 500;
-    letter-spacing: 0.5rem;
-    animation: 4s changeColor infinite linear;
-} */
 
 #errorSvg {
     display: none;
@@ -112,7 +94,7 @@ body {
 #keyboardSvg {
     margin-top: 30px;
     width: 80vw;
-    height: 32vh;
+    height: 33vh;
 }
 
 @keyframes leftPlanets {
