@@ -74,7 +74,7 @@
     "weak", "sweet", "sour", "salty", "bitter", "spicy", "fresh", "stale", "clean", "dirty",
     "empty", "full"],
 
-    "nature": ["forest", "mountain", "river", "lake", "ocean", "beach", "desert", "jungle", "savanna", "grassland",
+    "other" : ["forest", "mountain", "river", "lake", "ocean", "beach", "desert", "jungle", "savanna", "grassland",
     "tundra", "cave", "volcano", "waterfall", "glacier", "canyon", "valley", "plateau", "island", "archipelago",
     "reef", "coral", "mangrove", "marsh", "swamp", "wetland", "estuary", "delta", "pond", "spring",
     "stream", "brook", "creek", "waterway", "fjord", "inlet", "bay", "gulf", "sound", "harbor",
@@ -89,9 +89,7 @@
     "tanganyika", "baikal", "great bear", "great slave", "malawi", "erie", "ontario", "titicaca", "nicaragua", "balaton",
     "geneva", "urmia", "chad", "vanern", "winnipeg", "albert", "assal", "dead sea", "pacific", "atlantic",
     "indian", "arctic", "southern", "northern", "eastern", "western", "subtropical", "alpine", "marine", "lagoon",
-    "iceberg", "ice"],
-
-    "other" : ["love", "peace", "joy", "hope", "dream", "courage", "believe", "strength", "wisdom", "kindness",
+    "iceberg", "ice","love", "peace", "joy", "hope", "dream", "courage", "believe", "strength", "wisdom", "kindness",
     "happiness", "freedom", "success", "inspire", "create", "imagine", "achieve", "passion", "purpose", "gratitude",
     "empathy", "harmony", "balance", "adventure", "discovery", "exploration", "innovation", "challenge", "change", "growth",
     "resilience", "endurance", "perseverance", "determination", "ambition", "curiosity", "wonder", "magic", "miracle", "faith",

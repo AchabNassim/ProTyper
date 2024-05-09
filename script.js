@@ -248,8 +248,8 @@ const fetchJson = async (type) => {
         const database = await response.json();
         let words = [];
         if (type == "other" || type === undefined) {
-            const {fruits, foods, animals, difficultLexical, easyLexical, nature, other} = database;
-            words = [...fruits, ...foods, ...animals, ...difficultLexical, ...easyLexical, ...nature, ...other];
+            const {fruits, foods, animals, difficultLexical, easyLexical, other} = database;
+            words = [...fruits, ...foods, ...animals, ...difficultLexical, ...easyLexical, ...other];
         } else {
             words = database[type];
         }

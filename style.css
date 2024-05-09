@@ -16,6 +16,10 @@ body {
     font-style: normal;
 }
 
+#selectionDiv {
+    display: none;
+}
+
 #placeholder {
     margin: 10vh auto;
     /* height: 60vh; */
