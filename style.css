@@ -38,9 +38,10 @@ body {
 
 #parag {
     text-align: center;
-    width: 50vw;
+    width: 55vw;
     font-size: 1.3rem;
     word-spacing: 0.1rem;
+    letter-spacing: 0.1rem;
     line-height: 35px;
     font-weight: 00;
     /* background-color: rgba(255, 255, 255, 0.010); */
