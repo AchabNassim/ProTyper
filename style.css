@@ -14,10 +14,41 @@ body {
     color: #EFF7FF;
     font-family: 'Roboto Mono', sans-serif;
     font-style: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#selectionDiv {
-    display: none;
+#categoryHeader {
+    letter-spacing: 0.2rem;
+    text-align: center;
+}
+
+#categoryContainer {
+    width: 25vw;
+    margin: 100px auto;
+}
+
+
+#categoryElementContainer {
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+.categoryElement {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    width: 20%;
+    height: 100px;
+    transition: 0.3s ease-in-out;
+}
+
+.categoryElement:hover {
+    background-color: #23AFB2;
 }
 
 #placeholder {
@@ -28,6 +59,7 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    opacity: 0;
 }
 
 #timeHeader {

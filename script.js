@@ -5,6 +5,7 @@ const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
 let   keySoundIndex = 0;
 
+let selectedCategory = "";
 let stoppage = 0;
 let finished = 0;
 let timeoutId;
@@ -247,11 +248,17 @@ const fetchJson = async (type) => {
         }
         const database = await response.json();
         let words = [];
-        if (type == "other" || type === undefined) {
+        if (type == "random" || type === undefined) {
             const {fruits, foods, animals, difficultLexical, easyLexical, other} = database;
             words = [...fruits, ...foods, ...animals, ...difficultLexical, ...easyLexical, ...other];
-        } else {
-            words = database[type];
+        } else if (type == "food") {
+            const {fruits, foods} = database;
+            words = [...fruits, ...foods];
+        } else if (type == "common") {
+            const {difficultLexical, easyLexical, other} = database;
+            words = [...difficultLexical, ...easyLexical, ...other];
+        } else if (type == "animals") {
+            words = [...database["animals"]];
         }
         const shuffledWords = shuffleWords(words);
         const parag = document.getElementById("parag");
@@ -280,8 +287,23 @@ const fetchJson = async (type) => {
     }
 };
 
+function addClickEvent() {
+    const categoryList = document.getElementsByClassName("categoryElement");
+    for (let i = 0; i < categoryList.length; i++) {
+        categoryList[i].addEventListener("click", (e) => {
+            const parentElement = e.currentTarget;
+            const childELement = parentElement.querySelector(".categoryParag");
+            selectedCategory = childELement.textContent;
+            console.log(selectedCategory)
+            fetchJson(selectedCategory);
+            document.getElementById("categoryContainer").style.display = "none";
+            document.getElementById("placeholder").style.opacity = "1";
+        })
+    }
+}
+
 function init() {
-    fetchJson();
+    addClickEvent();
     document.addEventListener("keydown", (e) => {
         keyDownHandler(e);
     });
