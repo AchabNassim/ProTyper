@@ -43,7 +43,7 @@ body {
     align-items: center;
     border-radius: 10%;
     width: 20%;
-    height: 100px;
+    height: 80px;
     transition: 0.3s ease-in-out;
 }
 
@@ -54,7 +54,7 @@ body {
 #placeholder {
     margin: 10vh auto;
     /* height: 60vh; */
-    width: 50vw;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -70,14 +70,14 @@ body {
 
 #parag {
     text-align: center;
-    width: 55vw;
+    width: 66vw;
     font-size: 1.3rem;
     word-spacing: 0.1rem;
     letter-spacing: 0.1rem;
     line-height: 35px;
     font-weight: 00;
-    /* background-color: rgba(255, 255, 255, 0.010); */
-    /* letter-spacing: 0.1rem; */
+    background-color: rgba(255, 255, 255, 0.010);
+    letter-spacing: 0.1rem;
 }
 
 .highlighted {
@@ -130,7 +130,7 @@ body {
 
 #keyboardSvg {
     margin-top: 30px;
-    width: 80vw;
+    width: 60vw;
     height: 33vh;
 }
 
