@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
 :root {
     --mainColor: #00FFFF;
     --secondaryColor: #9900FF;
@@ -12,7 +14,7 @@ body {
     height: 80vh;
     background-color: var(--backgroundColor);
     color: #EFF7FF;
-    font-family: 'Roboto Mono', sans-serif;
+    font-family: 'Roboto Mono', monospace;
     font-style: normal;
     margin: 0;
     padding: 0;
@@ -20,42 +22,6 @@ body {
     overflow-y: hidden;
 }
 
-#categoryHeader {
-    letter-spacing: 0.2rem;
-    text-align: center;
-}
-
-#categoryContainer {
-    width: 20vw;
-    margin: 50px auto;
-}
-
-
-#categoryElementContainer {
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-evenly;
-    list-style: none;
-}
-
-.categoryElement {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10%;
-    width: 25%;
-    height: 80px;
-    transition: 0.3s ease-in-out;
-}
-
-.categoryElement img {
-    margin-top: 20px;
-}
-
-.categoryElement:hover {
-    background-color: #23AFB2;
-}
 
 #placeholder {
     margin: 10vh auto;
@@ -65,7 +31,6 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    opacity: 0;
 }
 
 #timeHeader {
@@ -75,16 +40,20 @@ body {
 }
 
 #parag {
-    text-align: center;
     width: 65%;
-    font-size: 1.3rem;
+    text-align: center;
+    font-size: 1.4rem;
     word-spacing: 0.1rem;
-    letter-spacing: 0.1rem;
     line-height: 35px;
-    font-weight: 00;
-    /* background-color: rgba(255, 255, 255, 0.010);
-    border-radius: 2%; */
     letter-spacing: 0.1rem;
+}
+
+.span {
+    box-sizing: border-box;
+    text-align: center;
+    opacity: 0.5;
+    display: none;
+    transition: 1s ease-in-out;
 }
 
 .highlighted {
@@ -105,12 +74,6 @@ body {
     text-decoration: underline;
     text-decoration-color: var(--errorColor);
     background-color: #ff6f6a1a;
-}
-
-.span {
-    opacity: 0.5;
-    display: none;
-    transition: 1s ease-in-out;
 }
 
 .visible {

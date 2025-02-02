@@ -1,6 +1,6 @@
 const SECONDS = 60;
 const NUMBERWORDS = 300;
-const DISPLAYEDAMMOUNT = 24;
+const DISPLAYEDAMMOUNT = 30;
 const keySounds = [];
 const deleteKeySound = new Audio("audio/BACKSPACE.mp3");
 let   keySoundIndex = 0;
@@ -86,41 +86,6 @@ function checkLetters(value) {
         }
     }
 }
-
-// Call the random words api, you can specify how many random words you want
-// const fillWithRandom = async (wordLength) => {
-//     try {
-//         const response = await fetch(`https://random-word-api.herokuapp.com/word?number=${NUMBERWORDS}`);
-//         if (!response.ok) {
-//             console.log(response);
-//         }
-//         const words = await response.json();
-//         const parag = document.getElementById("parag");
-//         words.map((value, key) => {
-//             if (value.length <= wordLength) {
-//                 let span = document.createElement("span");
-//                 span.classList.add("span");
-//                 if (key === 0) {
-//                     span.classList.add("highlighted");
-//                 }
-//                 if (key != words.length - 1)
-//                     appendSpanContent(span, value + " ");
-//                 else
-//                     appendSpanContent(span, value);
-//                 parag.appendChild(span);
-//             }
-//         })
-//         initSpans();
-//         filledParags = 1;
-//     } catch (error) {
-//         const errorSvg = document.getElementById("errorSvg");
-//         const keyboardSvg = document.getElementById("keyboardSvgPlaceholder");
-//         const timeHeader = document.getElementById("timeHeader");
-//         errorSvg.style.display = "block";
-//         keyboardSvg.style.display = "none";
-//         timeHeader.style.display = "none";
-//     }
-// };
 
 function playSound(sound) {
     if (sound === "delete") {
@@ -244,26 +209,14 @@ function shuffleWords(words) {
     return arr;
 }
 
-const fetchJson = async (type) => {
+const fetchJson = async () => {
     try {
         const response = await fetch(`database/database.json`);
         if (!response.ok) {
             console.log(response);
         }
         const database = await response.json();
-        let words = [];
-        if (type == "random" || type === undefined) {
-            const {fruits, foods, animals, difficultLexical, easyLexical, other} = database;
-            words = [...fruits, ...foods, ...animals, ...difficultLexical, ...easyLexical, ...other];
-        } else if (type == "food") {
-            const {fruits, foods} = database;
-            words = [...fruits, ...foods];
-        } else if (type == "common") {
-            const {difficultLexical, easyLexical, other} = database;
-            words = [...difficultLexical, ...easyLexical, ...other];
-        } else if (type == "animals") {
-            words = [...database["animals"]];
-        }
+        const {words} = database;
         const shuffledWords = shuffleWords(words);
         const parag = document.getElementById("parag");
         shuffledWords.map((value, key) => {
@@ -278,8 +231,6 @@ const fetchJson = async (type) => {
                 appendSpanContent(span, value);
             parag.appendChild(span);
         })
-        initSpans();
-        filledParags = 1;
     } catch (error) {
         console.log(error);
         const errorSvg = document.getElementById("errorSvg");
@@ -291,23 +242,10 @@ const fetchJson = async (type) => {
     }
 };
 
-function addClickEvent() {
-    const categoryList = document.getElementsByClassName("categoryElement");
-    for (let i = 0; i < categoryList.length; i++) {
-        categoryList[i].addEventListener("click", (e) => {
-            const parentElement = e.currentTarget;
-            const childELement = parentElement.querySelector(".categoryParag");
-            selectedCategory = childELement.textContent;
-            console.log(selectedCategory)
-            fetchJson(selectedCategory);
-            document.getElementById("categoryContainer").style.display = "none";
-            document.getElementById("placeholder").style.opacity = "1";
-        })
-    }
-}
-
-function init() {
-    addClickEvent();
+async function  init() {
+    await fetchJson(selectedCategory);
+    initSpans();
+    filledParags = 1;
     document.addEventListener("keydown", (e) => {
         keyDownHandler(e);
     });
